@@ -1,0 +1,112 @@
+<!doctype html> 
+<!--
+// =====================================================================================================
+// #####################################################################################################
+// 
+// Jeff Bigot 2017
+//
+// #####################################################################################################
+// =====================================================================================================
+-->
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html">    
+    <meta http-equiv="Content-Language" content="fr">
+ 
+    <meta charset="utf-8">
+    <title>Cartes clavier - bépo</title>
+    <style media="screen">
+body { background: #fff; }
+.k_std {
+    stroke: #B93A32;
+    strokeWidth: 2 ;
+    fill: #f5f2ef;
+    /*fill: #AF9483;*/
+    opacity: 0.9;
+}
+.k_func {
+    /*stroke: #4C6A92;*/
+    stroke: #B93A32;
+    strokeWidth: 2 ;
+    fill: #e5e5e6;
+    opacity: 0.9;
+}
+.k_p {
+    /* stroke: #AD5D5D;
+       strokeWidth: 1 ;*/ 
+    fill: #AD5D5D;
+    opacity: 0.2 ;
+}
+                
+</style>
+<script src="./js/snap.svg-min.js"></script>
+<script src="./js/MooTools-Core-1.6.0.js"></script>
+<script src="./js/MooTools-More-1.6.0.js"></script>
+<script src="./kbd_layout.js"></script>
+</head>
+<body>
+<h1>Ergodis - Cartes de clavier</h1>
+
+<svg id="svg" ></svg>
+<br> <hr> <br>
+<span>
+        <input type='checkbox' id="sel_t_k" checked="checked"
+                                            title="scancode">numéro de
+                                            touche</input> | 
+        <input type='checkbox' id="sel_k_p" checked="checked" title="picots">picots</input> | 
+        <input type='checkbox' id="sel_t_n" checked="checked" title="min">min</input> |
+        <input type='checkbox' id="sel_t_u" checked="checked" title="maj">maj</input> |
+        <input type='checkbox' id="sel_t_a" checked="checked" title="altgr">altGR</input> |
+        <input type='checkbox' id="sel_t_m" checked="checked" title="majAltgr">Maj alt GR</input><br>
+    </span>
+
+    (colorisation <input type="button" name="" value="position std">
+    <input type="button" name="" value="position en A">
+    <input type="button" name="" value="par fréquence">)
+    <br>
+    Couleur fond <input id="sel_c_b" type="text" value="#FFF"/><br>
+    Couleur minuscules <input id="sel_c_t_n" type="text" value="#4C6A92"/>
+    Couleur majuscules <input id="sel_c_t_u" type="text" value="#B93A32"/><br>
+
+    Couleur altgr <input id="sel_c_t_a" type="text" value="#838487"/>
+    Couleur maj altgr <input id="sel_c_t_m" type="text" value="#006E51"/><br>
+
+    Couleur scancode <input id="sel_c_t_k" type="text" value="#AD5D5D"/><br>
+    Couleur texte fonction <input id="sel_c_t_f" type="text" value="#4C6A92"/><br>
+    
+    Couleur contour <input id="sel_c_k_c" type="text" value="#B93A32"/>
+    Épaisseur contour <input id="sel_s_k_c" type="text" value="2"/><br>
+    Couleur fond txt <input id="sel_c_k_n" type="text" value="#f5f2ef"/><br>
+    Couleur fond fonct <input id="sel_c_k_f" type="text" value="#e5e5e6"/><br>
+    Couleur picots <input id="sel_c_k_p" type="text" value="#AD5D5D"/><br>
+
+    <hr>
+
+    <label for="choix_font">Police utilisée :</label>
+    <select name="liste_font" id="choix_font">
+        <option value="Times New Roman">Times New Roman </option>
+        <option value="Arial" selected > Arial </option>
+        <option value="Trebuchet MS">Trebuchet MS </option>
+        <option value="Lucida Console"> Lucida Console</option>
+    </select>
+    <br>
+    Clavier physique
+    <textarea rows="6" cols="80" id="kbd_phys">
+29|02|03|04|05|06|07|08|09|0A|0B|0C|0D|0E:F:1.75#
+0F:F:1.5|10|11|12|13|14|15|16|17|18|19|1A|1B|1C:I:I#
+3A:F:1.75|1E|1F|20|21:P|22|23|24:P|25|26|27|28|2B#
+2A:F:1.25|56|2C|2D|2E|2F|30|31|32|33|34|35|36:F:2.55#
+1D:F:1.25|E01F:F:1.25|38:F:1.25|39:N:6.35|E038:F:1.25|E027:F:1.25|E02F:F:1.25|E01D:F:1.25
+    </textarea>
+    <br>
+
+    Disposition logique <br>
+    <textarea rows="6" cols="80" id="kbd_log">
+   </textarea>
+
+
+
+    <input type="button" name="redraw" value="dessiner">
+
+</body>
+</html>
