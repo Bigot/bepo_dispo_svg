@@ -1,0 +1,6 @@
+= TODO = 
+
+- utilisation de fragment
+- fenetre outerSVG
+- utilisation de Element.data
+- formaliser le nommage des éléments pour les retrouver facilement 
