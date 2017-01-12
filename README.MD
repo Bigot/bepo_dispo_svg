@@ -21,7 +21,10 @@ Outil permettant d'afficher des cartes de disposition de clavier.
 Ouvrir le fichier bepo_dispo_svg.html avec un navigateur.
 
 <br>
-Cet outil utilise <a href="mootools.net">Mootools</a> pour faciliter la rédaction du javascript et <a href="snapsvg.io">snapsvg </a> pour la génération du svg.
+Cet outil utilise <a href="mootools.net">Mootools</a> pour faciliter la
+rédaction du javascript, <a href="snapsvg.io">snapsvg </a> pour la génération
+du svg et <a href="http://jscolor.com">jscolor</a> pour la sélection des
+couleurs.
 
 <h2>TODO</h2>
 <ul>
