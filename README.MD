@@ -52,7 +52,6 @@ couleurs.
         <li>plugin snap ?</li>
         <li>découpage en plusieurs .js</li>
         <li>limiter l'usage css pour la portabilité des images</li>
-        <li>remettre image ergodis en svg et non png</li>
     </ul>
 </ul>
 
