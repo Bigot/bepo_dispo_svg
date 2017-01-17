@@ -1,120 +1,86 @@
 // Jeff Bigot 2017
 
 var keysymdef = new Hash();
-var liste_key = new Hash();
 
 var kbd_snap ;
-
-//=============================================================================
-// sauvegarde 
-//=============================================================================
-/*
-var dispo_xkb  = "TLDE|AE01|AE02|AE03|AE04|AE05|AE06|AE07|AE08|AE09|AE10|AE11|AE12|BKSP:F:1.75#"
-    + "TAB:F:1.5|AD01|AD02|AD03|AD04|AD05|AD06|AD07|AD08|AD09|AD10|AD11|AD12|RTRN:I:I#"
-    + "CAPS:F:1.75|AC01|AC02|AC03|AC04:P|AC05|AC06|AC07:P|AC08|AC09|AC10|AC11|BKSL#"
-    + "LFSH:F:1.25|LSGT|AB01|AB02|AB03|AB04|AB05|AB06|AB07|AB08|AB09|AB10|RTSH:F:2.55#"
-    + "LCTL:F:1.25|LWIN:F:1.25|LALT:F:1.25|SPCE:N:6.35|RALT:F:1.25|RWIN:F:1.25|MENU:F:1.25|RCTL:F:1.25";
-var dispo_scancode = "29|02|03|04|05|06|07|08|09|0A|0B|0C|0D|0E:F:1.75#"
-    + "0F:F:1.5|10|11|12|13|14|15|16|17|18|19|1A|1B|1C:I:I#"
-    + "3A:F:1.75|1E|1F|20|21:P|22|23|24:P|25|26|27|28|2B#"
-    + "2A:F:1.25|56|2C|2D|2E|2F|30|31|32|33|34|35|36:F:2.55#"
-    + "1D:F:1.25|E01F:F:1.25|38:F:1.25|39:N:6.35|E038:F:1.25|E027:F:1.25|E02F:F:1.25|E01D:F:1.25" ;
-    
-var layout_scancode_bepo =    {
-    "02" : { name : "02", A : "1", B : "\"", C : "„", D : "—", },
-    "03" : { name : "03", A : "2", B : "«", C : "“", D : "<", },
-    "04" : { name : "04", A : "3", B : "»", C : "”", D : ">", },
-    "05" : { name : "05", A : "4", B : "(", C : "=", D : "[", },
-    "06" : { name : "06", A : "5", B : ")", C : "=", D : "]", },
-    "07" : { name : "07", A : "6", B : "@", C : "", D : "^", }, 
-    "08" : { name : "08", A : "7", B : "+", C : "¬", D : "±", },
-    "09" : { name : "09", A : "8", B : "-", C : "¼", D : "-", },
-    "0A" : { name : "0A", A : "9", B : "/", C : "½", D : "÷", },
-    "0B" : { name : "0B", A : "0", B : "*", C : "¾", D : "×", },
-    "0C" : { name : "0C", A : "°", B : "=", C : "'", D : "″", },
-    "0D" : { name : "0D", A : "`", B : "%", C : "″", D : "‰", },
-    "0E" : { name : "0E", A : "Back", B : "", C : "", D : "", }, 
-    // deuxième ligne
-    "0F" : { name : "0F", A : "Tab", B : "", C : "", D : "", },
-    "10" : { name : "10", A : "B", B : "b", C : "¦", D : "|", },
-    "11" : { name : "11", A : "É", B : "é", C : "˝", D : "´", },
-    "12" : { name : "12", A : "P", B : "p", C : "§", D : "&", },
-    "13" : { name : "13", A : "O", B : "o", C : "Œ", D : "œ", }, 
-    "14" : { name : "14", A : "È", B : "è", C : "`", D : "`", }, 
-    "15" : { name : "15", A : "!", B : "^", C : "", D : "¡", },
-    "16" : { name : "16", A : "V", B : "v", C : "", D : "?", },
-    "17" : { name : "17", A : "D", B : "d", C : "Ð", D : "ð", },
-    "18" : { name : "18", A : "L", B : "l", C : "", D : "/", },
-    "19" : { name : "19", A : "J", B : "j", C : "Ĳ", D : "ĳ", },
-    "1A" : { name : "1A", A : "Z", B : "z", C : "Ə", D : "əə", },
-    "1B" : { name : "1B", A : "W", B : "w", C : "", D : "˘", },
-    "1C" : { name : "1C", A : "Entrée", B : "", C : "", D : "", },
-    // 3 ème ligne 
-    "1D" : { name : "1D", A : "Ctrl", B : "", C : "", D : "", },
-    "1E" : { name : "1E", A : "A", B : "a", C : "Æ", D : "æ", },
-    "1F" : { name : "1F", A : "U", B : "u", C : "Ù", D : "ù", },
-    "20" : { name : "20", A : "I", B : "i", C : "¨", D : "¨", },
-    "21" : { name : "21", A : "E", B : "e", C : "€", D : "€", },
-    "22" : { name : "22", A : ",", B : ",", C : "’", D : "’", },
-    "23" : { name : "23", A : "C", B : "c", C : "ſ", D : "©", },
-    "24" : { name : "24", A : "T", B : "t", C : "Þ", D : "þ", },
-    "25" : { name : "25", A : "S", B : "s", C : "ẞ", D : "ß", },
-    "26" : { name : "26", A : "R", B : "r", C : "™", D : "®", },
-    "27" : { name : "27", A : "N", B : "n", C : "", D : "~", },
-    "28" : { name : "28", A : "M", B : "m", C : "º", D : "¯", },
-    "29" : { name : "29", A : "#", B : "$", C : "¶", D : "–", },
-    // 4ème ligne 
-    "2A" : { name : "2A", A : "Maj", B : "", C : "", D : "", },
-    "2B" : { name : "2B", A : "Ç", B : "ç", C : ",", D : "¸", },
-    "2C" : { name : "2C", A : "À", B : "à", C : "", D : "\\", },
-    "2D" : { name : "2D", A : "Y", B : "y", C : "‘", D : "{", },
-    "2E" : { name : "2E", A : "X", B : "x", C : "’", D : "}", },
-    "2F" : { name : "2F", A : ":", B : ".", C : "·", D : "…", },
-    "30" : { name : "30", A : "K", B : "k", C : "", D : "~", },
-    "31" : { name : "31", A : "?", B : "'", C : "̣̣̣̣̣̣̉", D : "¿", },
-    "32" : { name : "32", A : "Q", B : "q", C : "̣̣", D : "°", },
-
-    "33" : { name : "33", A : "G", B : "g", C : "̣", D : "µ", },
-    "34" : { name : "34", A : "H", B : "h", C : "‡", D : "†", },
-    "35" : { name : "35", A : "F", B : "f", C : "ª", D : "˛", },
-    "36" : { name : "36", A : "Maj", B : "", C : "", D : "", },
-    "37" : { name : "37", A : "a", B : "b", C : "c", D : "d", },
-    "38" : { name : "38", A : "Alt", B : "", C : "", D : "", },
-    "39" : { name : "39", A : "insec", B : "espace", C : "insec fine", D : "_", },
-    "3A" : { name : "3A", A : "Ver Maj", B : "", C : "", D : "", },
-    "56" : { name : "56", A : "Ê", B : "ê", C : "", D : "/", }, 
-    //  E01F ║ 38  ║          39           ║  E038 ║ E027 ║ E02F ║ E01D ║  ║ 53 
-    "E01F" : { name : "E01F", A : "Sys", B : "", C : "", D : "", }, 
-    "E038" : { name : "E038", A : "Altgr", B : "", C : "", D : "", },
-    "E027" : { name : "E027", A : "Sys", B : "", C : "", D : "", },
-    "E02F" : { name : "E02F", A : "Menu", B : "b", C : "c", D : "d", },
-    "E01D" : { name : "E01D", A : "Ctrl", B : "b", C : "c", D : "d", },
-};
-*/
-//=============================================================================
-//=============================================================================
 
 //=============================================================================
 // forme physique du clavier 
 //=============================================================================
 
+var defval = function(vari,val){ 
+        if (typeof vari === "undefined") {
+            return val ;
+        } else {
+            return vari ;
+        }
+}
+
+
 var KeyboardShape = new Class ({
-    basesize : 50 , // taille de touche
-    btwn : 3 ,  // espace entre touches
-    round : 5 , // rayon de congé des touches
-    carac_size : 16 ,
-    font: "Time New Roman",
-    margin_x : 10 , // marge à gauche
-    margin_y : 10 ,
-    k_margin_l : 15 , // % marge entre le bord gauche et le caractère
-    k_margin_t : 5 , // % marge entre le bord supérieur et le haut du caractère
-    k_margin_r : 10, // % marge entre le bord gauche et le caractère
-    k_margin_b : 17 ,
-    dot_size : 6,
-    
+    basesize :'', // taille de touche
+    btwn :'',  // espace entre touches
+    round :'', // rayon de congé des touches
+    carac_size :'',
+    font:'',// "Time New Roman",
+    margin_x :'', // marge à gauche
+    margin_y :'',
+    k_margin_l :'', // % marge entre le bord gauche et le caractère
+    k_margin_t :'', // % marge entre le bord supérieur et le haut du caractère
+    k_margin_r :'', // % marge entre le bord gauche et le caractère
+    k_margin_b :'',
+    dot_size :'',
+    height:'',
+    width:'',
     keys_str:'',
+    keys:[],
     initialize: function(){
     },
+    load_json_params: function(str){
+        var params = JSON.decode(str);
+        this.basesize   = defval(params.basesize,50) ;
+        this.btwn       = defval(params.btwn, 3) ;
+        this.round      = defval(params.round,5) ;
+        this.carac_size = defval(params.carac_size,16) ;
+        this.font       = defval(params.font,"Time New Roman");
+        this.margin_x   = defval(params.margin_x,10) ;
+        this.margin_y   = defval(params.margin_y,10) ;
+        this.k_margin_l = defval(params.k_margin_l,15);
+        this.k_margin_t = defval(params.k_margin_t,5);
+        this.k_margin_r = defval(params.k_margin_r,10);
+        this.k_margin_b = defval(params.k_margin_b,17) ;
+        this.dot_size   = defval(params.dot_size,6);
+
+        this.width   = defval(params.width,"800px");
+        this.height   = defval(params.height,"320px");
+
+    },
+    load_json_keys: function(str){
+        this.keys = JSON.decode(str);
+    },
+    //TODO vérif !
+    init_str: function(str){
+        var lignes = kbd.keys_str.split("#");
+        var i = 0 ;
+        lignes.each(function(str){
+
+            keys[i] = [];
+            var j = 0 ;
+            str = str.replace(/\n/g,"");
+            var l2 = str.split("|");
+            l2.each(function(st){ 
+                var touche = st.split(":");
+                var KN = touche[0] ;
+                var KT = touche[1] || "N" ;
+                var KS = touche[2] || 1 ;
+
+                keys[i][j].c = KN ;
+                keys[i][j].t = KT ;
+                keys[i][j].s = KS ;
+            });
+        } );
+    }
+
 });
 
 var kshape = new KeyboardShape();
@@ -182,8 +148,7 @@ var KeyboardDrawer = new Class ({
         this.shape = shape;
         this.layout = layout;
     },
-
-    svg: function(snap){        
+   svg: function(snap){        
         var kbd = this.shape;
         var lay = this.layout;
         svgsnap = snap;
@@ -191,41 +156,39 @@ var KeyboardDrawer = new Class ({
         var xval = kbd.margin_x ;
         var yval = kbd.margin_y ;
         
-        var lignes = kbd.keys_str.split("#");
-        lignes.each(function(str){
-            str = str.replace(/\n/g,"");
-            xval = kbd.margin_x  ;
-            var l2 = str.split("|");
-            l2.each(function(st){ 
-                var touche = st.split(":");
-                var KN = touche[0] ;
-                var KT = touche[1] ;
-                var KS = touche[2] || 1 ;
+        var kk ;
 
-                var kk ;
-                if (!KT){
+        var lignes = kbd.keys;
+        lignes.each(function(ligne){
+            xval = kbd.margin_x  ;
+            ligne.each(function(key){ 
+                //var KS ;
+                if(typeOf(key)=="string"){
                     kk = new Key();
-                } else if (KT == "F" ){
-                    kk = new FuncKey();
-                } else if (KT == "I" ) {
-                    kk = new IsoEnterKey();
-                } else if (KT == "P" ) {
-                    kk = new DotKey();
-                } else {
-                    kk = new Key();
+                    kk.init(lay.valsFromScancode(key),kbd);
+                    kk.size = 1 ;
+                } else if (typeOf(key) == "object"){
+                    var type = key.t || "N" ;
+                    if (type == "F" ){
+                        kk = new FuncKey();
+                    } else if (type == "I" ) {
+                        kk = new IsoEnterKey();
+                   } else if (type == "P" ) {
+                        kk = new DotKey();
+                   } else {
+                        kk = new Key();
+                   }
+
+                   kk.init(lay.valsFromScancode(key.c),kbd);
+                   kk.size = key.s || 1 ;
                 }
                 kk.posX = xval ;
                 kk.posY = yval ;
-                kk.size = KS ;
-                // voir si valeur par défaut bien à propos
-                kk.init(lay.valsFromScancode(KN),kbd);
                 kk.svg(svgsnap,kbd);
-                xval += KS*kbd.basesize+kbd.btwn ;
+                xval += kk.size*kbd.basesize+kbd.btwn ;
             });
             yval += kbd.basesize+kbd.btwn ;
         } );
-
-   //    var im = svgsnap.image("120px-Ergodis-logo-normal.png", kbd.margin_x ,yval+kbd.btwn);
 
       var h= Snap.select('#logo_ergodis');
        var l = h.clone();
@@ -260,14 +223,13 @@ var Key = new Class ({
         this.B = str.B;
         this.C = str.C;
         this.D = str.D;
+        this.F = str.F ;
         this.name = str.name ;
         this.kl = (kbd.k_margin_l * kbd.basesize) / 100  ;
         this.kt = (kbd.k_margin_t * kbd.basesize) / 100;
         this.kr = (kbd.k_margin_r * kbd.basesize) / 100;
         this.kb = (kbd.k_margin_b * kbd.basesize) / 100 ;
         this.kbd = kbd;
-
-
     }, 
     svgshape: function(snap){
         var key = snap.rect(this.posX,this.posY,this.kbd.basesize*this.size,this.kbd.basesize,this.kbd.round);
@@ -278,28 +240,28 @@ var Key = new Class ({
         // le texte en haut à gauche
         var t1 = snap.text(this.posX,this.posY,this.A);
         t1.addClass("t_std t_u");
-        t1.attr({"font-type": this.kbd.font, "font-size": this.kbd.carac_size+"px" });
+        t1.attr({"font-family": this.kbd.font, "font-size": this.kbd.carac_size+"px" });
         t1.transform("t"+this.kl+","+(this.kbd.carac_size+this.kt));
 
         var t2 = snap.text(this.posX,this.posY,this.B);
         t2.addClass("t_std t_n");
-        t2.attr({"font-type": this.kbd.font, "font-size": this.kbd.carac_size+"px" });
+        t2.attr({"font-family": this.kbd.font, "font-size": this.kbd.carac_size+"px" });
         t2.transform("t"+this.kl+","+(this.kbd.basesize - this.kb));
 
         var t3 = snap.text(this.posX,this.posY,this.C);
-        t3.addClass("t_std t_m").attr({"font-type": this.kbd.font, "font-size": this.kbd.carac_size+ "px" });
+        t3.addClass("t_std t_m").attr({"font-family": this.kbd.font, "font-size": this.kbd.carac_size+ "px" });
         var w_t3 = t3.getBBox()["width"]; 
         t3.transform("t"+(this.kbd.basesize*this.size-this.kr-w_t3)+","+(this.kbd.carac_size+this.kt));
 
         var t4 = snap.text(this.posX,this.posY,this.D);
-        t4.addClass("t_std t_a").attr({"font-type": this.kbd.font, "font-size": this.kbd.carac_size+ "px" });
+        t4.addClass("t_std t_a").attr({"font-family": this.kbd.font, "font-size": this.kbd.carac_size+ "px" });
 
         var w_t4 = t4.getBBox()["width"]; 
         t4.transform("t"+(this.kbd.basesize*this.size-this.kr-w_t4)+","+(this.kbd.basesize - this.kb));
 
         var tn = snap.text(this.posX,this.posY,this.name);
         tn.addClass("t_std t_k");
-        tn.attr({"font-type": this.kbd.font, "font-size":"8px" });
+        tn.attr({"font-family": this.kbd.font, "font-size":"8px" });
         var w_tn = tn.getBBox()["width"]; 
        // tn.transform("t"+(kbd.basesize*this.size/2-w_tn/2)+","+(kbd.basesize/2+4));   
         tn.transform("t"+(this.kbd.basesize*this.size-w_tn-this.kr)+","+(this.kbd.basesize/2+4));   
@@ -326,12 +288,12 @@ var FuncKey = new Class ({
     Extends: Key,
     svgtxt: function(snap){
         // le texte en haut à gauche
-        var t1 = snap.text(this.posX,this.posY,this.A);
-        t1.addClass("t_func t_f").attr({"font-type": this.kbd.font,"font-weight": "bold" , "font-size": this.kbd.carac_size+"px" });
+        var t1 = snap.text(this.posX,this.posY,this.F);
+        t1.addClass("t_func t_f").attr({"font-family": this.kbd.font,"font-weight": "bold" , "font-size": this.kbd.carac_size+"px" });
         t1.transform("t"+this.kl+","+(this.kbd.carac_size+this.kt));
 
         var tn = snap.text(this.posX,this.posY,this.name);
-        tn.addClass("t_func t_k").attr({"font-type": this.kbd.font, "font-size":"8px" });
+        tn.addClass("t_func t_k").attr({"font-family": this.kbd.font, "font-size":"8px" });
         var w_tn = tn.getBBox()["width"];
         // (kbd.basesize*this.size/2-w_tn/2)
         tn.transform("t"+this.kl+","+(this.kbd.basesize/2+4)); //TODO 4 !! 
@@ -356,6 +318,8 @@ var IsoEnterKey = new Class ({
         
         var x = this.posX + this.kbd.round ;
         var y = this.posY ;
+        //TODO corriger pour quand round est supérieur à ssup-sinf
+        var petround = Math.min(this.kbd.round,ssup-sinf);
 
         var pt1 = "M"+x+","+y ;
         x += this.kbd.basesize * ssup - 2*this.kbd.round;
@@ -444,7 +408,6 @@ function keysymdefToKeys(strksd,ksd){
 
     str = str.replace(/ +/g, '%');
     str = str.split("\n");
-   // var listesys = new Hash() ;
     str.each( function(item){
         var txt = item.split("%");
         if(txt[1]){
@@ -457,18 +420,18 @@ function keysymdefToKeys(strksd,ksd){
 
 function kbd_redraw(){
     kbd_snap.clear();
-    eval("liste_key=new Object("+$('layscan').get('value')+");");
-    klayout.layout = liste_key;
-    kshape.keys_str =$('kbd_phys').get('value') ; 
     
+    klayout.layout=JSON.decode($('layscan').get('value'));
+    kshape.load_json_keys($('kbd_phys').get('value') );
+    kshape.load_json_params($('kbd_params').get('value') );
+    //console.log(kshape);
+   // kshape.keys_str =$('kbd_phys').get('value') ; 
       
-    var f_t_std ="Lucida Console" ;
     
-    $('svg').setStyle('height', '320px') ;
-    $('svg').setStyle('width', '800px') ;
+    $('svg').setStyle('height', kshape.height) ;
+    $('svg').setStyle('width', kshape.width) ;
     $('svg').setStyle('border', '1px solid black') ;
 
-    kshape.font = f_t_std ; //TODO enlever font de shape
     var kdrawer = new KeyboardDrawer(kshape,klayout); //Snap(1000,800)) ;
     kdrawer.svg(kbd_snap);
 
@@ -485,7 +448,6 @@ function kbd_redraw(){
     $$('.t_f').setStyle("fill","#"+$('sel_c_t_f').value);  
     $$('.k_p').setStyle("fill","#"+$('sel_c_k_p').value);  
     $('svg').setStyle("background","#"+$('sel_c_b').value);  
-
 
     return kdrawer ;
 }
@@ -532,3 +494,95 @@ window.onload = function () {
 
   $('bt_redraw').addEvents({'click': kbd_redraw });
 };
+
+
+//=============================================================================
+// sauvegarde 
+//=============================================================================
+/*
+var dispo_xkb  = "TLDE|AE01|AE02|AE03|AE04|AE05|AE06|AE07|AE08|AE09|AE10|AE11|AE12|BKSP:F:1.75#"
+    + "TAB:F:1.5|AD01|AD02|AD03|AD04|AD05|AD06|AD07|AD08|AD09|AD10|AD11|AD12|RTRN:I:I#"
+    + "CAPS:F:1.75|AC01|AC02|AC03|AC04:P|AC05|AC06|AC07:P|AC08|AC09|AC10|AC11|BKSL#"
+    + "LFSH:F:1.25|LSGT|AB01|AB02|AB03|AB04|AB05|AB06|AB07|AB08|AB09|AB10|RTSH:F:2.55#"
+    + "LCTL:F:1.25|LWIN:F:1.25|LALT:F:1.25|SPCE:N:6.35|RALT:F:1.25|RWIN:F:1.25|MENU:F:1.25|RCTL:F:1.25";
+var dispo_scancode = "29|02|03|04|05|06|07|08|09|0A|0B|0C|0D|0E:F:1.75#"
+    + "0F:F:1.5|10|11|12|13|14|15|16|17|18|19|1A|1B|1C:I:I#"
+    + "3A:F:1.75|1E|1F|20|21:P|22|23|24:P|25|26|27|28|2B#"
+    + "2A:F:1.25|56|2C|2D|2E|2F|30|31|32|33|34|35|36:F:2.55#"
+    + "1D:F:1.25|E01F:F:1.25|38:F:1.25|39:N:6.35|E038:F:1.25|E027:F:1.25|E02F:F:1.25|E01D:F:1.25" ;
+    
+var layout_scancode_bepo =    {
+    "02" : { name : "02", A : "1", B : "\"", C : "„", D : "—", },
+    "03" : { name : "03", A : "2", B : "«", C : "“", D : "<", },
+    "04" : { name : "04", A : "3", B : "»", C : "”", D : ">", },
+    "05" : { name : "05", A : "4", B : "(", C : "=", D : "[", },
+    "06" : { name : "06", A : "5", B : ")", C : "=", D : "]", },
+    "07" : { name : "07", A : "6", B : "@", C : "", D : "^", }, 
+    "08" : { name : "08", A : "7", B : "+", C : "¬", D : "±", },
+    "09" : { name : "09", A : "8", B : "-", C : "¼", D : "-", },
+    "0A" : { name : "0A", A : "9", B : "/", C : "½", D : "÷", },
+    "0B" : { name : "0B", A : "0", B : "*", C : "¾", D : "×", },
+
+    "0D" : { name : "0D", A : "`", B : "%", C : "″", D : "‰", },
+    "0E" : { name : "0E", A : "Back", B : "", C : "", D : "", }, 
+    // deuxième ligne
+    "0F" : { name : "0F", A : "Tab", B : "", C : "", D : "", },
+    "10" : { name : "10", A : "B", B : "b", C : "¦", D : "|", },
+    "11" : { name : "11", A : "É", B : "é", C : "˝", D : "´", },
+    "12" : { name : "12", A : "P", B : "p", C : "§", D : "&", },
+    "13" : { name : "13", A : "O", B : "o", C : "Œ", D : "œ", }, 
+    "14" : { name : "14", A : "È", B : "è", C : "`", D : "`", }, 
+    "15" : { name : "15", A : "!", B : "^", C : "", D : "¡", },
+    "16" : { name : "16", A : "V", B : "v", C : "", D : "?", },
+    "17" : { name : "17", A : "D", B : "d", C : "Ð", D : "ð", },
+    "18" : { name : "18", A : "L", B : "l", C : "", D : "/", },
+    "19" : { name : "19", A : "J", B : "j", C : "Ĳ", D : "ĳ", },
+    "1A" : { name : "1A", A : "Z", B : "z", C : "Ə", D : "əə", },
+    "1B" : { name : "1B", A : "W", B : "w", C : "", D : "˘", },
+    "1C" : { name : "1C", A : "Entrée", B : "", C : "", D : "", },
+    // 3 ème ligne 
+    "1D" : { name : "1D", A : "Ctrl", B : "", C : "", D : "", },
+    "1E" : { name : "1E", A : "A", B : "a", C : "Æ", D : "æ", },
+    "1F" : { name : "1F", A : "U", B : "u", C : "Ù", D : "ù", },
+    "20" : { name : "20", A : "I", B : "i", C : "¨", D : "¨", },
+    "21" : { name : "21", A : "E", B : "e", C : "€", D : "€", },
+    "22" : { name : "22", A : ",", B : ",", C : "’", D : "’", },
+    "23" : { name : "23", A : "C", B : "c", C : "ſ", D : "©", },
+    "24" : { name : "24", A : "T", B : "t", C : "Þ", D : "þ", },
+    "25" : { name : "25", A : "S", B : "s", C : "ẞ", D : "ß", },
+    "26" : { name : "26", A : "R", B : "r", C : "™", D : "®", },
+    "27" : { name : "27", A : "N", B : "n", C : "", D : "~", },
+    "28" : { name : "28", A : "M", B : "m", C : "º", D : "¯", },
+    "29" : { name : "29", A : "#", B : "$", C : "¶", D : "–", },
+    // 4ème ligne 
+    "2A" : { name : "2A", A : "Maj", B : "", C : "", D : "", },
+    "2B" : { name : "2B", A : "Ç", B : "ç", C : ",", D : "¸", },
+    "2C" : { name : "2C", A : "À", B : "à", C : "", D : "\\", },
+    "2D" : { name : "2D", A : "Y", B : "y", C : "‘", D : "{", },
+    "2E" : { name : "2E", A : "X", B : "x", C : "’", D : "}", },
+    "2F" : { name : "2F", A : ":", B : ".", C : "·", D : "…", },
+    "30" : { name : "30", A : "K", B : "k", C : "", D : "~", },
+    "31" : { name : "31", A : "?", B : "'", C : "̣̣̣̣̣̣̉", D : "¿", },
+    "32" : { name : "32", A : "Q", B : "q", C : "̣̣", D : "°", },
+
+    "33" : { name : "33", A : "G", B : "g", C : "̣", D : "µ", },
+    "34" : { name : "34", A : "H", B : "h", C : "‡", D : "†", },
+    "35" : { name : "35", A : "F", B : "f", C : "ª", D : "˛", },
+    "36" : { name : "36", A : "Maj", B : "", C : "", D : "", },
+    "37" : { name : "37", A : "a", B : "b", C : "c", D : "d", },
+    "38" : { name : "38", A : "Alt", B : "", C : "", D : "", },
+    "39" : { name : "39", A : "insec", B : "espace", C : "insec fine", D : "_", },
+    "3A" : { name : "3A", A : "Ver Maj", B : "", C : "", D : "", },
+    "56" : { name : "56", A : "Ê", B : "ê", C : "", D : "/", }, 
+    //  E01F ║ 38  ║          39           ║  E038 ║ E027 ║ E02F ║ E01D ║  ║ 53 
+    "E01F" : { name : "E01F", A : "Sys", B : "", C : "", D : "", }, 
+    "E038" : { name : "E038", A : "Altgr", B : "", C : "", D : "", },
+    "E027" : { name : "E027", A : "Sys", B : "", C : "", D : "", },
+    "E02F" : { name : "E02F", A : "Menu", B : "b", C : "c", D : "d", },
+    "E01D" : { name : "E01D", A : "Ctrl", B : "b", C : "c", D : "d", },
+};
+*/
+//=============================================================================
+//=============================================================================
+
+

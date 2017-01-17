@@ -17,6 +17,14 @@
     <title>Cartes clavier - bépo</title>
     <style media="screen">
 body { background: #fff; }
+h1 {
+    text-align: center;
+}
+
+svg {
+    display:block;
+    margin:0px auto;
+}
 .k_std {
     stroke: #B93A32;
     strokeWidth: 2 ;
@@ -37,7 +45,30 @@ body { background: #fff; }
     fill: #AD5D5D;
     opacity: 0.2 ;
 }
-                
+
+div.disp_block {
+    width: 230px;
+    display:inline-block;
+    border: solid 1px blue;
+}
+span.disp_style {
+}
+
+span.disp_style>input {
+    width: 50px;
+    align: rigth;
+    display:inline-block;
+}
+span.disp_style>span {
+    width: 150px;
+    display:inline-block;
+}
+div.disp_block_short {
+    width: 120px;
+    display:inline-block;
+    border: solid 1px blue;
+}
+             
 </style>
 <script src="./js/snap.svg-min.js"></script>
 <script src="./js/MooTools-Core-1.6.0.js"></script>
@@ -49,40 +80,60 @@ body { background: #fff; }
 <h1>Ergodis - Cartes de clavier</h1>
 <svg id="svg" ></svg>
 <br> <hr> <br>
-<span>
+<div class="disp_block_short">
+    Selection
         <input type='checkbox' id="sel_t_k" checked="checked"
                                             title="scancode">numéro de
-                                            touche</input> | 
-        <input type='checkbox' id="sel_k_p" checked="checked" title="picots">picots</input> | 
-        <input type='checkbox' id="sel_t_n" checked="checked" title="min">min</input> |
-        <input type='checkbox' id="sel_t_u" checked="checked" title="maj">maj</input> |
-        <input type='checkbox' id="sel_t_a" checked="checked" title="altgr">altGR</input> |
-        <input type='checkbox' id="sel_t_m" checked="checked" title="majAltgr">Maj alt GR</input><br>
-    </span>
+                                            touche</input> <br> 
+        <input type='checkbox' id="sel_k_p" checked="checked"
+        title="picots">picots</input><br>  
+        <input type='checkbox' id="sel_t_n" checked="checked"
+        title="min">min</input><br> 
+        <input type='checkbox' id="sel_t_u" checked="checked"
+        title="maj">maj</input><br> 
+        <input type='checkbox' id="sel_t_a" checked="checked"
+        title="altgr">altGR</input><br> 
+        <input type='checkbox' id="sel_t_m" checked="checked" title="majAltgr">Maj alt GR</input>
+    </div>
 
-    (colorisation <input type="button" name="" value="position std">
+    <div class="disp_block_short">
+    (colorisation) <input type="button" name="" value="position std">
     <input type="button" name="" value="position en A">
-    <input type="button" name="" value="par fréquence">)
-    <br>
-    Couleur fond <input id="sel_c_b" type="text"
-    onchange="update(this.jscolor)" class="jscolor" value="FFFFFF"/><br>
-    Couleur minuscules <input id="sel_c_t_n" class="jscolor"  type="text" class="jscolor" value="4C6A92"/>
-    Couleur majuscules <input id="sel_c_t_u" type="text" class="jscolor" value="B93A32"/><br>
+    <input type="button" name="" value="par fréquence">
+    </div>
+    <div class="disp_block">
+        Couleur des textes
+        <span class="disp_style"><span>    Couleur minuscules </span> <input id="sel_c_t_n" class="jscolor"  type="text" class="jscolor" value="4C6A92"/></span> 
+    <span class="disp_style"> <span> Couleur majuscules </span> <input id="sel_c_t_u" type="text" class="jscolor"
+     value="B93A32"/></span> 
 
-    Couleur altgr <input id="sel_c_t_a" type="text" class="jscolor"   value="838487"/>
-    Couleur maj altgr <input id="sel_c_t_m" type="text" class="jscolor"   value="006E51"/><br>
-
-    Couleur scancode <input id="sel_c_t_k" type="text" class="jscolor"   value="AD5D5D"/><br>
-    Couleur texte fonction <input id="sel_c_t_f" type="text" class="jscolor"   value="4C6A92"/><br>
+    <span class="disp_style"><span>  Couleur altgr </span> <input id="sel_c_t_a" type="text" class="jscolor"
+     value="838487"/></span> 
+    <span class="disp_style"><span>  Couleur maj altgr </span> <input id="sel_c_t_m" type="text" class="jscolor"
+      value="006E51"/></span>
+    <span class="disp_style"><span>  Couleur scancode </span> <input id="sel_c_t_k" type="text" class="jscolor"
+       value="AD5D5D"/></span> 
+    <span class="disp_style"><span>  Couleur texte fonction </span> <input id="sel_c_t_f" type="text" class="jscolor"
+      value="4C6A92"/></span> </div>
     
-    Couleur contour <input id="sel_c_k_c" type="text" class="jscolor"   value="B93A32"/>
-    Épaisseur contour <input id="sel_s_k_c" type="text" value="1"/><br>
-    Couleur fond txt <input id="sel_c_k_n" type="text" class="jscolor"   value="f5f2ef"/><br>
-    Couleur fond fonct <input id="sel_c_k_f" type="text" class="jscolor"   value="e5e5e6"/><br>
-    Couleur picots <input id="sel_c_k_p" type="text" class="jscolor"   value="AD5D5D"/><br>
+    <div class="disp_block">
+        Couleur de fond
+    <span class="disp_style"><span>  Couleur fond </span> <input id="sel_c_b"  class="jscolor" 
+    type="text" value="FFFFFF"></span> 
+    <span class="disp_style"><span>  Couleur contour </span> <input id="sel_c_k_c" type="text" class="jscolor"
+     value="B93A32"/></span> 
+    <span class="disp_style"><span>  Couleur fond txt </span> <input id="sel_c_k_n" type="text" class="jscolor"
+      value="f5f2ef"/></span> 
+    <span class="disp_style"><span>  Couleur fond fonct </span> <input id="sel_c_k_f" type="text" class="jscolor"
+      value="e5e5e6"/></span> 
+    <span class="disp_style"><span>  Couleur picots </span> <input id="sel_c_k_p" type="text" class="jscolor"
+       value="AD5D5D"/><br>
+   </span> 
+   </div>
+    <span class="disp_style"> Épaisseur contour <input id="sel_s_k_c" type="text" value="1"/></span> 
 
     <hr>
-
+    <h2>Paramètres</h2>
     <label for="choix_font">Police utilisée :</label>
     <select name="liste_font" id="choix_font">
         <option value="Times New Roman">Times New Roman </option>
@@ -91,95 +142,140 @@ body { background: #fff; }
         <option value="Lucida Console"> Lucida Console</option>
     </select>
     <br>
+    titre<br>
+    <textarea rows="1" cols="80" id="kbd_title" style="display:true; border: solid 1px blue">
+Disposition BÉPO
+    </textarea>
+    <br>
     Clavier physique
-    <textarea rows="6" cols="80" id="kbd_phys" style="display:true; border: solid 1px blue"
+    <label for="choix_forme">forme du clavier :</label>
+    <select name="liste_forme" id="choix_forme">
+        <option value="kbd_shape_105" selected >105</option>
+        <option value="kbd_shape_104" >104</option>
+    </select>
+
+   <input type="button" id="bt_forme_load" value="charge" >
+   <br>
+   <textarea rows="6" cols="80" id="kbd_phys" style="display:true; border: solid 1px blue"
 >
+[
+["29","02","03","04","05","06","07","08","09","0A","0B","0C","0D",{"c":"0E","t":"F","s":"1.75"}],
+[ {"c":"0F","t":"F","s":"1.5"}, "10","11","12","13","14","15","16","17","18","19","1A","1B", {"c":"1C","t":"I"}],
+[ {"c":"3A","t":"F","s":"1.75"}, "1E","1F","20", {"c":"21","t":"P"}, "22","23",{"c":"24","t":"P"} ,"25","26","27","28","2B" ],
+[ { "c":"2A","t":"F","s":"1.25"}, "56","2C","2D","2E","2F","30","31","32","33","34","35", {"c":"36","t":"F","s":"2.55"} ],
+[ {"c":"1D","t":"F","s":"1.25"}, {"c":"E01F","t":"F","s":"1.25"}, {"c":"38","t":"F","s":"1.25"}, {"c":"39","t":"N","s":"6.35"}, {"c":"E038","t":"F","s":"1.25"}, {"c":"E027","t":"F","s":"1.25"}, {"c":"E02F","t":"F","s":"1.25"}, {"c":"E01D","t":"F","s":"1.25"} ]]
+    </textarea>
+   <br>
+    Disposition logique <br>
+   <textarea id="layscan" style="display:true; border: solid 1px blue"
+       rows="10" cols="80">
+{ 
+"02" : { "name" : "02", "A" : "1", "B" : "\"", "C" : "„", "D" : "—" },
+"03" : { "name" : "03", "A" : "2", "B" : "«", "C" : "“", "D" : "<" },
+"04" : { "name" : "04", "A" : "3", "B" : "»", "C" : "”", "D" : ">" },
+"05" : { "name" : "05", "A" : "4", "B" : "(", "C" : "=", "D" : "[" },
+"06" : { "name" : "06", "A" : "5", "B" : ")", "C" : "=", "D" : "]" },
+"07" : { "name": "07", "A" : "6", "B" : "@", "C" : "", "D" : "^" }, 
+"08" : { "name" : "08", "A" : "7", "B" : "+", "C" : "¬", "D" : "±" },
+"09" : { "name" : "09", "A" : "8", "B" : "-", "C" : "¼", "D" : "-" },
+"0A" : { "name" : "0A", "A" : "9", "B" : "/", "C" : "½", "D" : "÷" },
+"0B" : { "name" : "0B", "A" : "0", "B" : "*", "C" : "¾", "D" : "×" },
+"0C" : { "name" : "0C", "A" : "°", "B" : "=", "C" : "'", "D" : "″" },
+"0D" : { "name" : "0D", "A" : "`", "B" : "%", "C" : "″", "D" : "‰" },
+"0E" : { "name" : "0E", "F" : "Back" }, 
+"0F" : { "name" : "0F", "F" : "Tab" },
+"10" : { "name" : "10", "A" : "B", "B" : "b", "C" : "¦", "D" : "|" },
+"11" : { "name" : "11", "A" : "É", "B" : "é", "C" : "˝", "D" : "´" },
+"12" : { "name" : "12", "A" : "P", "B" : "p", "C" : "§", "D" : "&" },
+"13" : { "name" : "13", "A" : "O", "B" : "o", "C" : "Œ", "D" : "œ" }, 
+"14" : { "name" : "14", "A" : "È", "B" : "è", "C" : "`", "D" : "`" }, 
+"15" : { "name" : "15", "A" : "!", "B" : "^", "C" : "", "D" : "¡" },
+"16" : { "name" : "16", "A" : "V", "B" : "v", "C" : "", "D" : "?" },
+"17" : { "name" : "17", "A" : "D", "B" : "d", "C" : "Ð", "D" : "ð" },
+"18" : { "name" : "18", "A" : "L", "B" : "l", "C" : "", "D" : "/" },
+"19" : { "name" : "19", "A" : "J", "B" : "j", "C" : "Ĳ", "D" : "ĳ" },
+"1A" : { "name" : "1A", "A" : "Z", "B" : "z", "C" : "Ə", "D" : "əə" },
+"1B" : { "name" : "1B", "A" : "W", "B" : "w", "C" : "", "D" : "˘" },
+"1C" : { "name" : "1C", "F" : "Entrée" },
+"1D" : { "name" : "1D", "F" : "Ctrl" },
+"1E" : { "name" : "1E", "A" : "A", "B" : "a", "C" : "Æ", "D" : "æ" },
+"1F" : { "name" : "1F", "A" : "U", "B" : "u", "C" : "Ù", "D" : "ù" },
+"20" : { "name" : "20", "A" : "I", "B" : "i", "C" : "¨", "D" : "¨" },
+"21" : { "name" : "21", "A" : "E", "B" : "e", "C" : "€", "D" : "€" },
+"22" : { "name" : "22", "A" : ",", "B" : ",", "C" : "’", "D" : "’" },
+"23" : { "name" : "23", "A" : "C", "B" : "c", "C" : "ſ", "D" : "©" },
+"24" : { "name" : "24", "A" : "T", "B" : "t", "C" : "Þ", "D" : "þ" },
+"25" : { "name" : "25", "A" : "S", "B" : "s", "C" : "ẞ", "D" : "ß" },
+"26" : { "name" : "26", "A" : "R", "B" : "r", "C" : "™", "D" : "®" },
+"27" : { "name" : "27", "A" : "N", "B" : "n", "C" : "", "D" : "~" },
+"28" : { "name" : "28", "A" : "M", "B" : "m", "C" : "º", "D" : "¯" },
+"29" : { "name" : "29", "A" : "#", "B" : "$", "C" : "¶", "D" : "–" },
+"2A" : { "name" : "2A", "F" : "Maj" },
+"2B" : { "name" : "2B", "A" : "Ç", "B" : "ç", "C" : ",", "D" : "¸" },
+"2C" : { "name" : "2C", "A" : "À", "B" : "à", "C" : "", "D" : "\\" },
+"2D" : { "name" : "2D", "A" : "Y", "B" : "y", "C" : "‘", "D" : "{" },
+"2E" : { "name" : "2E", "A" : "X", "B" : "x", "C" : "’", "D" : "}" },
+"2F" : { "name" : "2F", "A" : ":", "B" : ".", "C" : "·", "D" : "…" },
+"30" : { "name" : "30", "A" : "K", "B" : "k", "C" : "", "D" : "~" },
+"31" : { "name" : "31", "A" : "?", "B" : "'", "C" : "̣̣̣̣̣̣̉", "D" : "¿" },
+"32" : { "name" : "32", "A" : "Q", "B" : "q", "C" : "̣̣", "D" : "°" },
+"33" : { "name" : "33", "A" : "G", "B" : "g", "C" : "̣", "D" : "µ" },
+"34" : { "name" : "34", "A" : "H", "B" : "h", "C" : "‡", "D" : "†" },
+"35" : { "name" : "35", "A" : "F", "B" : "f", "C" : "ª", "D" : "˛" },
+"36" : { "name" : "36", "F" : "Maj" },
+"37" : { "name" : "37", "A" : "a", "B" : "b", "C" : "c", "D" : "d" },
+"38" : { "name" : "38", "F" : "Alt" },
+"39" : { "name" : "39", "A" : "insec", "B" : "espace", "C" : "insec fine", "D" : "_" },
+"3A" : { "name" : "3A", "F" : "Ver Maj" },
+"56" : { "name" : "56", "A" : "Ê", "B" : "ê", "C" : "", "D" : "/" }, 
+"E01F" : { "name" : "E01F", "F" : "Sys" }, 
+"E038" : { "name" : "E038", "F" : "Altgr" },
+"E027" : { "name" : "E027", "F" : "Sys" },
+"E02F" : { "name" : "E02F", "F" : "Menu" },
+"E01D" : { "name" : "E01D", "F" : "Ctrl" }
+}
+   </textarea><br>
+
+    Paramètres <br>
+   <textarea id="kbd_params" style="display:true; border: solid 1px blue"
+       rows="6" cols="80">
+{ 
+"width" : "800px", 
+"height":"320px",
+"basesize" : 50 , 
+"btwn" : 3 , 
+"round" : 5 , 
+"carac_size" : 16 , 
+"font" : "Time New Roman",
+"margin_x" : 10 ,
+"margin_y" : 10 ,
+"k_margin_l" : 15 , 
+"k_margin_t" : 5 ,
+"k_margin_r" : 10, 
+"k_margin_b" : 17 ,
+"dot_size" : 6
+}
+</textarea>
+
+   <input type="button" id="bt_redraw" name="redraw" value="dessiner">
+
+    <span id="def_kbd_phys_105" style="display:none;">
 29|02|03|04|05|06|07|08|09|0A|0B|0C|0D|0E:F:1.75#
 0F:F:1.5|10|11|12|13|14|15|16|17|18|19|1A|1B|1C:I:I#
 3A:F:1.75|1E|1F|20|21:P|22|23|24:P|25|26|27|28|2B#
 2A:F:1.25|56|2C|2D|2E|2F|30|31|32|33|34|35|36:F:2.55#
 1D:F:1.25|E01F:F:1.25|38:F:1.25|39:N:6.35|E038:F:1.25|E027:F:1.25|E02F:F:1.25|E01D:F:1.25
-    </textarea>
-    <br>
+    </span>
+    <span id="def_kbd_phys_104" style="display:none;">
+29|02|03|04|05|06|07|08|09|0A|0B|0C|0D|0E:F:1.75#
+0F:F:1.5|10|11|12|13|14|15|16|17|18|19|1A|1B|2B#1C:I:I#
+3A:F:1.75|1E|1F|20|21:P|22|23|24:P|25|26|27|28|1C:F:2#
+2A:F:2|56|2C|2D|2E|2F|30|31|32|33|34|35|36:F:2.25#
+1D:F:1.25|E01F:F:1.25|38:F:1.25|39:N:6.35|E038:F:1.25|E027:F:1.25|E02F:F:1.25|E01D:F:1.25
+    </span>
 
-    Disposition logique <br>
 
-   <textarea id="layscan" style="display:true; border: solid 1px blue"
-       rows="10" cols="80">
-{
- "02" : { name : "02", A : "1", B : "\"", C : "„", D : "—", },
- "03" : { name : "03", A : "2", B : "«", C : "“", D : "<", },
- "04" : { name : "04", A : "3", B : "»", C : "”", D : ">", },
- "05" : { name : "05", A : "4", B : "(", C : "=", D : "[", },
- "06" : { name : "06", A : "5", B : ")", C : "=", D : "]", },
- "07" : { name : "07", A : "6", B : "@", C : "", D : "^", }, 
- "08" : { name : "08", A : "7", B : "+", C : "¬", D : "±", },
- "09" : { name : "09", A : "8", B : "-", C : "¼", D : "-", },
- "0A" : { name : "0A", A : "9", B : "/", C : "½", D : "÷", },
- "0B" : { name : "0B", A : "0", B : "*", C : "¾", D : "×", },
- "0C" : { name : "0C", A : "°", B : "=", C : "'", D : "″", },
- "0D" : { name : "0D", A : "`", B : "%", C : "″", D : "‰", },
- "0E" : { name : "0E", A : "Back", B : "", C : "", D : "", }, 
- /* deuxième ligne */
- "0F" : { name : "0F", A : "Tab", B : "", C : "", D : "", },
- "10" : { name : "10", A : "B", B : "b", C : "¦", D : "|", },
- "11" : { name : "11", A : "É", B : "é", C : "˝", D : "´", },
- "12" : { name : "12", A : "P", B : "p", C : "§", D : "&", },
- "13" : { name : "13", A : "O", B : "o", C : "Œ", D : "œ", }, 
- "14" : { name : "14", A : "È", B : "è", C : "`", D : "`", }, 
- "15" : { name : "15", A : "!", B : "^", C : "", D : "¡", },
- "16" : { name : "16", A : "V", B : "v", C : "", D : "?", },
- "17" : { name : "17", A : "D", B : "d", C : "Ð", D : "ð", },
- "18" : { name : "18", A : "L", B : "l", C : "", D : "/", },
- "19" : { name : "19", A : "J", B : "j", C : "Ĳ", D : "ĳ", },
- "1A" : { name : "1A", A : "Z", B : "z", C : "Ə", D : "əə", },
- "1B" : { name : "1B", A : "W", B : "w", C : "", D : "˘", },
- "1C" : { name : "1C", A : "Entrée", B : "", C : "", D : "", },
- /* 3 ème ligne */
- "1D" : { name : "1D", A : "Ctrl", B : "", C : "", D : "", },
- "1E" : { name : "1E", A : "A", B : "a", C : "Æ", D : "æ", },
- "1F" : { name : "1F", A : "U", B : "u", C : "Ù", D : "ù", },
- "20" : { name : "20", A : "I", B : "i", C : "¨", D : "¨", },
- "21" : { name : "21", A : "E", B : "e", C : "€", D : "€", },
- "22" : { name : "22", A : ",", B : ",", C : "’", D : "’", },
- "23" : { name : "23", A : "C", B : "c", C : "ſ", D : "©", },
- "24" : { name : "24", A : "T", B : "t", C : "Þ", D : "þ", },
- "25" : { name : "25", A : "S", B : "s", C : "ẞ", D : "ß", },
- "26" : { name : "26", A : "R", B : "r", C : "™", D : "®", },
- "27" : { name : "27", A : "N", B : "n", C : "", D : "~", },
- "28" : { name : "28", A : "M", B : "m", C : "º", D : "¯", },
- "29" : { name : "29", A : "#", B : "$", C : "¶", D : "–", },
- /* 4ème ligne */ 
- "2A" : { name : "2A", A : "Maj", B : "", C : "", D : "", },
- "2B" : { name : "2B", A : "Ç", B : "ç", C : ",", D : "¸", },
- "2C" : { name : "2C", A : "À", B : "à", C : "", D : "\\", },
- "2D" : { name : "2D", A : "Y", B : "y", C : "‘", D : "{", },
- "2E" : { name : "2E", A : "X", B : "x", C : "’", D : "}", },
- "2F" : { name : "2F", A : ":", B : ".", C : "·", D : "…", },
- "30" : { name : "30", A : "K", B : "k", C : "", D : "~", },
- "31" : { name : "31", A : "?", B : "'", C : "̣̣̣̣̣̣̉", D : "¿", },
- "32" : { name : "32", A : "Q", B : "q", C : "̣̣", D : "°", },
- "33" : { name : "33", A : "G", B : "g", C : "̣", D : "µ", },
- "34" : { name : "34", A : "H", B : "h", C : "‡", D : "†", },
- "35" : { name : "35", A : "F", B : "f", C : "ª", D : "˛", },
- "36" : { name : "36", A : "Maj", B : "", C : "", D : "", },
- "37" : { name : "37", A : "a", B : "b", C : "c", D : "d", },
- "38" : { name : "38", A : "Alt", B : "", C : "", D : "", },
- "39" : { name : "39", A : "insec", B : "espace", C : "insec fine", D : "_", },
- "3A" : { name : "3A", A : "Ver Maj", B : "", C : "", D : "", },
- "56" : { name : "56", A : "Ê", B : "ê", C : "", D : "/", }, 
-/*  Fcts */ 
- "E01F" : { name : "E01F", A : "Sys", B : "", C : "", D : "", }, 
- "E038" : { name : "E038", A : "Altgr", B : "", C : "", D : "", },
- "E027" : { name : "E027", A : "Sys", B : "", C : "", D : "", },
- "E02F" : { name : "E02F", A : "Menu", B : "b", C : "c", D : "d", },
- "E01D" : { name : "E01D", A : "Ctrl", B : "b", C : "c", D : "d", },
-
-}
-
-   </textarea>
-   <input type="button" id="bt_redraw" name="redraw" value="dessiner">
-    <span id="laykbd" style="display:none">
+    <span id="def_laykbd" style="display:none">
 # key                direct        shift                altgr          altgr+shift
 
 # First row
