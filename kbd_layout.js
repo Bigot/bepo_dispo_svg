@@ -2,12 +2,6 @@
 
 var keysymdef = new Hash();
 
-var kbd_snap ;
-
-//=============================================================================
-// forme physique du clavier 
-//=============================================================================
-
 var defval = function(vari,val){ 
         if (typeof vari === "undefined") {
             return val ;
@@ -16,46 +10,14 @@ var defval = function(vari,val){
         }
 }
 
+//=============================================================================
+// forme physique du clavier 
+//=============================================================================
 
 var KeyboardShape = new Class ({
-    basesize :'', // taille de touche
-    btwn :'',  // espace entre touches
-    round :'', // rayon de congé des touches
-    carac_size :'',
-    font:'',// "Time New Roman",
-    margin_x :'', // marge à gauche
-    margin_y :'',
-    k_margin_l :'', // % marge entre le bord gauche et le caractère
-    k_margin_t :'', // % marge entre le bord supérieur et le haut du caractère
-    k_margin_r :'', // % marge entre le bord gauche et le caractère
-    k_margin_b :'',
-    dot_size :'',
-    height:'',
-    width:'',
-    keys_str:'',
-    keys:[],
-    initialize: function(){
-    },
-    load_json_params: function(str){
-        var params = JSON.decode(str);
-        this.basesize   = defval(params.basesize,50) ;
-        this.btwn       = defval(params.btwn, 3) ;
-        this.round      = defval(params.round,5) ;
-        this.carac_size = defval(params.carac_size,16) ;
-        this.font       = defval(params.font,"Time New Roman");
-        this.margin_x   = defval(params.margin_x,10) ;
-        this.margin_y   = defval(params.margin_y,10) ;
-        this.k_margin_l = defval(params.k_margin_l,15);
-        this.k_margin_t = defval(params.k_margin_t,5);
-        this.k_margin_r = defval(params.k_margin_r,10);
-        this.k_margin_b = defval(params.k_margin_b,17) ;
-        this.dot_size   = defval(params.dot_size,6);
-
-        this.width   = defval(params.width,"800px");
-        this.height   = defval(params.height,"320px");
-
-    },
-    load_json_keys: function(str){
+    keys:'',
+    initialize: function(){ },
+    load_json: function(str){
         this.keys = JSON.decode(str);
     },
     //TODO vérif !
@@ -83,16 +45,20 @@ var KeyboardShape = new Class ({
 
 });
 
-var kshape = new KeyboardShape();
 //=============================================================================
 // Disposition  
 //=============================================================================
 
 var KeyboardLayout = new Class ({
     layout:"",
-    confLayout:"",
-    initialize: function(){
+    //confLayout:"",
+   
+    initialize: function(){ },
+    
+    load_json: function(str){
+        this.layout = JSON.decode(str);
     },
+
     valsFromScancode: function(scan){
         if (this.layout[scan]){
             return this.layout[scan];
@@ -100,6 +66,7 @@ var KeyboardLayout = new Class ({
             return scan;
         }
     },
+
     valsFromConfcode: function(cc){
         if (this.layout[cc]){
             return this.layout[cc];
@@ -126,13 +93,10 @@ var KeyboardLayout = new Class ({
             ks.C = keysymdef[ar[5]]||"";//ar[5];
             ks.D = keysymdef[ar[4]]||"";//ar[4];
             confLayout[ar[1]]=ks;
-        
         });
     }
-
 });
 
-var klayout = new KeyboardLayout();
 
 //=============================================================================
 // objet de dessin 
@@ -144,28 +108,81 @@ var KeyboardDrawer = new Class ({
     shape: '', // lien vers KeyboardShape
     layout:'', // lien vers KeyboardLayout
     svgsnap: '',
-    initialize: function(shape,layout){
+    basesize :'', // taille de touche
+    btwn :'',  // espace entre touches
+    round :'', // rayon de congé des touches
+    carac_size :'',
+    font:'',// "Time New Roman",
+    margin_x :'', // marge à gauche
+    margin_y :'',
+    k_margin_l :'', // % marge entre le bord gauche et le caractère
+    k_margin_t :'', // % marge entre le bord supérieur et le haut du caractère
+    k_margin_r :'', // % marge entre le bord gauche et le caractère
+    k_margin_b :'',
+    dot_size :'',
+    height:'',
+    width:'',
+
+    initialize: function(){
+    },
+    init: function(shape,layout,snap){
         this.shape = shape;
         this.layout = layout;
+        this.svgsnap = snap;
+        snap.clear();
     },
-   svg: function(snap){        
+    load_json_params: function(str){
+        var params = JSON.decode(str);
+        this.basesize   = defval(params.basesize,50) ;
+        this.btwn       = defval(params.btwn, 3) ;
+        this.round      = defval(params.round,5) ;
+        this.carac_size = defval(params.carac_size,16) ;
+        this.font       = defval(params.font,"Time New Roman");
+        this.margin_x   = defval(params.margin_x,10) ;
+        this.margin_y   = defval(params.margin_y,10) ;
+        this.k_margin_l = defval(params.k_margin_l,15);
+        this.k_margin_t = defval(params.k_margin_t,5);
+        this.k_margin_r = defval(params.k_margin_r,10);
+        this.k_margin_b = defval(params.k_margin_b,17) ;
+        this.dot_size   = defval(params.dot_size,6);
+        this.title_font = defval(params.title_font,"Time New Roman");  
+        this.title_size = defval(params.title_size,24);  
+        this.title_weight = defval(params.title_weight,"bold");  
+
+        this.title = defval(params.title,"Disposition bépo");  
+
+        this.width   = defval(params.width,"800");
+        this.height   = defval(params.height,"340");
+
+    },
+
+
+   svg: function(){        
         var kbd = this.shape;
         var lay = this.layout;
-        svgsnap = snap;
-
-        var xval = kbd.margin_x ;
-        var yval = kbd.margin_y ;
+        var t = this;
+        var snap = this.svgsnap ; 
+        snap.attr({'height': t.height+"px",'width': t.width+"px" }) ;
+        var xval = t.margin_x ;
+        var yval = t.margin_y ;
         
         var kk ;
-
+        var txt_titre = snap.text(0,0,t.title);
+        txt_titre.attr({"font-family": t.title_font,"font-weight": t.title_weight ,  "font-size": t.title_size+"px" });
+        var title_h = txt_titre.getBBox()["height"]; 
+        var title_w = txt_titre.getBBox()["width"];
+        var title_cent_x = t.width/2 - title_w/2 ;
+        yval += title_h + t.btwn ;
+        console.log(title_cent_x);
+        txt_titre.transform("t"+title_cent_x+","+title_h );
         var lignes = kbd.keys;
         lignes.each(function(ligne){
-            xval = kbd.margin_x  ;
+            xval = t.margin_x  ;
             ligne.each(function(key){ 
                 //var KS ;
                 if(typeOf(key)=="string"){
                     kk = new Key();
-                    kk.init(lay.valsFromScancode(key),kbd);
+                    kk.init(lay.valsFromScancode(key),t);
                     kk.size = 1 ;
                 } else if (typeOf(key) == "object"){
                     var type = key.t || "N" ;
@@ -179,22 +196,22 @@ var KeyboardDrawer = new Class ({
                         kk = new Key();
                    }
 
-                   kk.init(lay.valsFromScancode(key.c),kbd);
+                   kk.init(lay.valsFromScancode(key.c),t);
                    kk.size = key.s || 1 ;
                 }
                 kk.posX = xval ;
                 kk.posY = yval ;
-                kk.svg(svgsnap,kbd);
-                xval += kk.size*kbd.basesize+kbd.btwn ;
+                kk.svg(snap,kbd);
+                xval += kk.size*t.basesize+t.btwn ;
             });
-            yval += kbd.basesize+kbd.btwn ;
+            yval += t.basesize+t.btwn ;
         } );
 
       var h= Snap.select('#logo_ergodis');
        var l = h.clone();
         l.attr({viewBox: "0 0 436 145",width: 120,height: 30});
-        svgsnap.append( l);
-        var dy = yval+kbd.btwn ;
+        snap.append( l);
+        var dy = yval+t.btwn ;
         l.transform("t0,"+dy);
       // snap.text(kbd.margin_x + im.getBBox()["width"] , yval+kbd.btwn+ im.getBBox()["height"] , "bepo.fr") ;
 
@@ -206,8 +223,8 @@ var Key = new Class ({
     posX: '',
     posY: '',
     size: '',
-    shape: '',
-    dot: '',
+    //shape: '',
+    // dot: '',
     A: '',
     B: '',
     C: '',
@@ -418,22 +435,22 @@ function keysymdefToKeys(strksd,ksd){
     return ksd;
 }
 
+ 
+var kdrawer = new KeyboardDrawer(); 
+var kshape  = new KeyboardShape();
+var klayout = new KeyboardLayout();
+var kbd_snap ;
+
 function kbd_redraw(){
-    kbd_snap.clear();
     
-    klayout.layout=JSON.decode($('layscan').get('value'));
-    kshape.load_json_keys($('kbd_phys').get('value') );
-    kshape.load_json_params($('kbd_params').get('value') );
+    klayout.load_json($('layscan').get('value'));
+    kshape.load_json($('kbd_phys').get('value'));
     //console.log(kshape);
    // kshape.keys_str =$('kbd_phys').get('value') ; 
-      
-    
-    $('svg').setStyle('height', kshape.height) ;
-    $('svg').setStyle('width', kshape.width) ;
-    $('svg').setStyle('border', '1px solid black') ;
 
-    var kdrawer = new KeyboardDrawer(kshape,klayout); //Snap(1000,800)) ;
-    kdrawer.svg(kbd_snap);
+    kdrawer.init(kshape,klayout,kbd_snap); 
+    kdrawer.load_json_params($('kbd_params').get('value') );
+    kdrawer.svg();
 
     $$('.k_std').setStyle("stroke","#"+$('sel_c_k_c').value);  
     $$('.k_func').setStyle("stroke","#"+$('sel_c_k_c').value);  
@@ -449,21 +466,17 @@ function kbd_redraw(){
     $$('.k_p').setStyle("fill","#"+$('sel_c_k_p').value);  
     $('svg').setStyle("background","#"+$('sel_c_b').value);  
 
-    return kdrawer ;
 }
 
 
 window.onload = function () {
     
     kbd_snap = Snap("#svg") ;
-    
+    $('svg').setStyle("border","solid 1px blue"); 
     // enregistrement des caractère unicode avec leur appellation keysymdef.h
-    keysymdefToKeys($('ksys').innerHTML,keysymdef) ; 
+   // keysymdefToKeys($('ksys').innerHTML,keysymdef) ; 
 
-    // enregistrement des touches selon le formalisme layout.conf
-    // layoutstrTo( $('laykbd').innerHTML ,liste_key)
-
-    var drawer = kbd_redraw();
+    kbd_redraw();
 
    //pb du dimensionnement des cases
     //on ne peut pas utliser les styles !
@@ -474,12 +487,10 @@ window.onload = function () {
   $('sel_k_p' ).addEvents({'change': toggle_k_p });
   $('sel_t_n' ).addEvents({'change': toggle_t_n });
 
-
   $('sel_c_k_c' ).addEvents({'change': mod_c_k_c });
   $('sel_c_k_n' ).addEvents({'change': mod_c_k_n });
   $('sel_c_k_f' ).addEvents({'change': mod_c_k_f });
   $('sel_s_k_c' ).addEvents({'change': mod_s_k_c });
-
 
   $('sel_c_t_m' ).addEvents({'change': mod_c_t_m });
   $('sel_c_t_u' ).addEvents({'change': mod_c_t_u });
@@ -490,7 +501,6 @@ window.onload = function () {
   $('sel_c_k_p' ).addEvents({'change': mod_c_k_p });
   
   $('sel_c_b'   ).addEvents({'change': mod_c_b   });
-
 
   $('bt_redraw').addEvents({'click': kbd_redraw });
 };
