@@ -77,11 +77,11 @@ div.disp_block_short {
 <script src="./kbd_layout.js"></script>
 </head>
 <body>
-<h1>Ergodis - Cartes de clavier</h1>
+<h1>Ergodis - Cartes de clavier au format SVG</h1>
 <svg id="svg" ></svg>
 <br> <hr> <br>
 <div class="disp_block_short">
-    Selection
+    Selection <hr>
         <input type='checkbox' id="sel_t_k" checked="checked"
                                             title="scancode">numéro de
                                             touche</input> <br> 
@@ -97,12 +97,13 @@ div.disp_block_short {
     </div>
 
     <div class="disp_block_short">
-    (colorisation) <input type="button" name="" value="position std">
+        (colorisation)<hr>
+        <input type="button" name="" value="position std">
     <input type="button" name="" value="position en A">
     <input type="button" name="" value="par fréquence">
     </div>
     <div class="disp_block">
-        Couleur des textes
+        Couleur des textes<hr>
         <span class="disp_style"><span>    Couleur minuscules </span> <input id="sel_c_t_n" class="jscolor"  type="text" class="jscolor" value="4C6A92"/></span> 
     <span class="disp_style"> <span> Couleur majuscules </span> <input id="sel_c_t_u" type="text" class="jscolor"
      value="B93A32"/></span> 
@@ -117,8 +118,8 @@ div.disp_block_short {
       value="4C6A92"/></span> </div>
     
     <div class="disp_block">
-        Couleur de fond
-    <span class="disp_style"><span>  Couleur fond </span> <input id="sel_c_b"  class="jscolor" 
+        Divers<hr>
+        <span class="disp_style"><span>  Couleur fond </span> <input id="sel_c_b"  class="jscolor" 
     type="text" value="FFFFFF"></span> 
     <span class="disp_style"><span>  Couleur contour </span> <input id="sel_c_k_c" type="text" class="jscolor"
      value="B93A32"/></span> 
@@ -129,18 +130,18 @@ div.disp_block_short {
     <span class="disp_style"><span>  Couleur picots </span> <input id="sel_c_k_p" type="text" class="jscolor"
        value="AD5D5D"/><br>
    </span> 
-   </div>
     <span class="disp_style"> Épaisseur contour <input id="sel_s_k_c" type="text" value="1"/></span> 
-
+   </div>
     <hr>
     <h2>Paramètres</h2>
-    <label for="choix_font">Police utilisée :</label>
+    <!--    <label for="choix_font">Police utilisée :</label>
     <select name="liste_font" id="choix_font">
         <option value="Times New Roman">Times New Roman </option>
         <option value="Arial" selected > Arial </option>
         <option value="Trebuchet MS">Trebuchet MS </option>
         <option value="Lucida Console"> Lucida Console</option>
     </select>
+    -->
 <!--    <br>
     titre<br>
     <textarea rows="1" cols="80" id="kbd_title" style="display:true; border: solid 1px blue">
@@ -154,7 +155,7 @@ Disposition BÉPO
         <option value="kbd_shape_104" >104</option>
     </select>
 
-   <input type="button" id="bt_forme_load" value="charge" >
+   <input type="button" id="bt_forme_load" value="charge" >(bouton inactif)
    <br>
    <textarea rows="6" cols="80" id="kbd_phys" style="display:true; border: solid 1px blue"
 >
@@ -239,9 +240,9 @@ Disposition BÉPO
     Paramètres <br>
    <textarea id="kbd_params" style="display:true; border: solid 1px blue"
        rows="6" cols="80">
-       {
-       "title" : "Disposition BÉPO",  
-       "title_font" : "Arial",
+{
+"title" : "Disposition BÉPO",  
+"title_font" : "Arial",
 "width" : "800", 
 "height":"340",
 "basesize" : 50 , 
@@ -258,7 +259,7 @@ Disposition BÉPO
 "dot_size" : 6
 }
 </textarea>
-
+<br>
    <input type="button" id="bt_redraw" name="redraw" value="dessiner">
 
     <span id="def_kbd_phys_105" style="display:none;">
@@ -2713,10 +2714,11 @@ SOFTWARE.
     
     </span>
     <br>
+    <hr>
 
-
-    Soutenu par 
-
+    Soutenu par l'association Ergodis, <a href="www.bepo.fr">sur le site
+        bepo.fr</a> 
+    <br>
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <div id="div_logo_ergodis">
