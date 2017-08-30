@@ -468,6 +468,75 @@ function kbd_redraw(){
 
 }
 
+//TODO revoir qq chose plus propre en mootools
+
+function triggerDownload (imgURI) {
+  var evt = new MouseEvent('click', {
+    view: window,
+    bubbles: false,
+    cancelable: true
+  });
+
+  var a = document.createElement('a');
+  a.setAttribute('download', 'bepo.png');
+  a.setAttribute('href', imgURI);
+  a.setAttribute('target', '_blank');
+
+  a.dispatchEvent(evt);
+}
+
+// TODO supprimer le canvas dans le html et le générer au besoin
+function sav_svg(){
+    var evt = new MouseEvent('click', {
+        view: window,
+        bubbles: false,
+        cancelable: true
+    });
+    var svgcode = $("svg").outerHTML;
+    console.log("blop");
+
+    var a = document.createElement("a");
+    a.setAttribute('download', 'bepo.svg');
+    a.setAttribute('href', svgDataURL($("svg")));
+    a.setAttribute('target', '_blank');
+    a.dispatchEvent(evt);
+
+}
+
+function svgDataURL(svg) {
+    var svgAsXML = (new XMLSerializer).serializeToString(svg);
+    return "data:image/svg+xml," + encodeURIComponent(svgAsXML);
+}
+
+function sav_png(){
+    var evt = new MouseEvent('click', {
+        view: window,
+        bubbles: false,
+        cancelable: true
+    });
+
+    var canvas = $("canvas"),
+    svg = $("svg"),
+    context = canvas.getContext("2d");
+    console.log(svg.heigh);
+    canvas.height = 340 ;
+    canvas.width = 800; 
+    canvas.setStyle("display","none");
+    var image = new Image;
+    image.src = svgDataURL(svg); // "fallback.svg";
+    image.onload = function() {
+        console.log("blop");
+        context.drawImage(image, 0, 0);
+
+        var a = document.createElement("a");
+        a.setAttribute('download', 'bepo.png');
+        a.setAttribute('href', canvas.toDataURL("image/png"));
+        a.setAttribute('target', '_blank');
+        a.dispatchEvent(evt);
+    };
+
+}
+
 
 window.onload = function () {
     
@@ -503,6 +572,9 @@ window.onload = function () {
   $('sel_c_b'   ).addEvents({'change': mod_c_b   });
 
   $('bt_redraw').addEvents({'click': kbd_redraw });
+  $('bt_savsvg').addEvents({'click': sav_svg });
+  $('bt_savpng').addEvents({'click': sav_png });
+
 };
 
 
