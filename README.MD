@@ -39,7 +39,6 @@ couleurs.
         <li>animation saisie texte</li>
         <li>gestion des touches mortes</li>
     </ul>
-</li>
     <li>outil</li>
     <ul>
         <li>paramérage d'autres dispositions physiques</li>
@@ -49,7 +48,6 @@ couleurs.
         <li>couleur par fréquence</li>
         <li>un peu d'esthétique</li>
     </ul>
-
     <li>Dev</li>
     <ul>
         <li></li>
