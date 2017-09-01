@@ -18,7 +18,7 @@ Outil permettant d'afficher des cartes de disposition de clavier.
 
 <br>
 
-Ouvrir le fichier bepo_dispo_svg.html avec un navigateur.
+Une démonstration est disponible à l'adresse  <a href="http://www.raktres.net/projects/svg_kbd_layout/index.html">http://www.raktres.net/projects/svg_kbd_layout/index.html</a>.
 
 <br>
 Cet outil utilise <a href="http://mootools.net">Mootools</a> pour faciliter la
@@ -30,20 +30,17 @@ couleurs.
 <ul>
     <li>fonctionnalités du svg généré</li>
     <ul>
-        <li>titre de l'image</li>
         <li>zone texte en dessous</li>
         <li>gestion hover</li>
         <li>animation saisie texte</li>
-        <li>couleur des caractères selon la fonction des touches (touches mortes...)</li>
         <li>gestion des touches mortes</li>
     </ul>
-
+</li>
     <li>outil</li>
     <ul>
         <li>paramérage d'autres dispositions physiques</li>
         <li>modification en ligne de la disposition</li>
         <li>prendre en entree des fichiers de configGenerator ou xbd </li>
-        <li>enregistrement format svg, png</li>
         <li>couleur par doigt</li>
         <li>couleur par fréquence</li>
         <li>un peu d'esthétique</li>
@@ -51,15 +48,13 @@ couleurs.
 
     <li>Dev</li>
     <ul>
-        <li>plugin snap ?</li>
-        <li>découpage en plusieurs .js</li>
-        <li>limiter l'usage css pour la portabilité des images</li>
+        <li></li>
     </ul>
 </ul>
 
 
 <h2>Liens</h2>
-
-bepo.fr
+ <a href="http://www.raktres.net/projects/svg_kbd_layout/index.html">http://www.raktres.net/projects/svg_kbd_layout/index.html</a>
+  <a href="http://www.bepo.fr">http://www.bepo.fr</a> 
 <br>
 jeff Bigot
