@@ -10,17 +10,21 @@
 <body>
 
 
-<h1>Affichage de disposition</h1>
+<h1>Génération de cartes de disposition de clavier</h1>
 
 
 <h2>Présentation</h2>
-Outil permettant d'afficher des cartes de disposition de clavier.
+Outil permettant d'afficher des cartes de disposition de clavier, en
+particulier pour la disposition bépo.
 
 <br>
 
+<h2>Démonstration</h2>
 Une démonstration est disponible à l'adresse  <a href="http://www.raktres.net/projects/svg_kbd_layout/index.html">http://www.raktres.net/projects/svg_kbd_layout/index.html</a>.
 
 <br>
+
+<h2>bibliothèques</h2>
 Cet outil utilise <a href="http://mootools.net">Mootools</a> pour faciliter la
 rédaction du javascript, <a href="http://snapsvg.io">snapsvg </a> pour la génération
 du svg et <a href="http://jscolor.com">jscolor</a> pour la sélection des
@@ -55,6 +59,8 @@ couleurs.
 
 <h2>Liens</h2>
  <a href="http://www.raktres.net/projects/svg_kbd_layout/index.html">http://www.raktres.net/projects/svg_kbd_layout/index.html</a>
+
+ <br>
   <a href="http://www.bepo.fr">http://www.bepo.fr</a> 
-<br>
-jeff Bigot
+<hr>
+jeff Bigot 2017
